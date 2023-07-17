@@ -7,8 +7,10 @@ if not os.path.exists("data"):
 def download_from_gdrive(dst_root, fn, gdrive_path, iszip=True):
   if not os.path.exists(dst_root):
     os.system("mkdir {}".format(dst_root))
-  print("{}/{}".format(dst_root, fn))
-  if not os.path.exists("{}\\{}".format(dst_root, fn)):
+
+  print(f"path {os.path.join(dst_root, fn)} not exsits - { not os.path.exists(os.path.join(dst_root, fn))}")
+  if not os.path.exists(os.path.join(dst_root, fn)):
+    print(f"gdown {gdrive_path}")
     os.system("gdown {}".format(gdrive_path))
     if iszip:
       os.system("unzip {}.zip".format(fn))
@@ -91,8 +93,8 @@ ds = Dataset(dataroot=dataroot, dim=(256,176), n_human_part=8)
 
 # preload a set of pre-selected models defined in "standard_test_anns.txt" for quick visualizations
 inputs = dict()
-for attr in ds.attr_keys:
-    inputs[attr] = ds.get_attr_visual_input(attr)
+# for attr in ds.attr_keys:
+#     inputs[attr] = ds.get_attr_visual_input(attr)
 
 # define some tool functions for I/O
 def load_img(pid, ds):
